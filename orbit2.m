@@ -1,8 +1,8 @@
 function [ Y ] = orbit2( seed, N, orbitfct, varargin )
-%Returns N numbers of the orbit of a (chaotic) function recursively
-% Arugments needed for the chaotic funtion need t be specified as arguments in varargin
-% The used function needs to be written in ''
-% Initial Seed is also output!!
+% Returns N numbers of the orbit of a function recursively
+% Arugments required for the chaotic funtion can be specified in varargin
+% The used function needs to be written in quotation marks ''
+% Initial seed is now also output in Y at the end
 
 % Default is one iteration:
 if nargin < 2

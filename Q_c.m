@@ -1,6 +1,7 @@
 function [ Y ] = Q_c( X, c )
-%Returns one iteration of the a quadratic function family
-% Standardvalue for c is 0
+% Returns one iteration of the a quadratic function family
+% Parameter is c
+% Default value for c is 0
 
 if nargin < 2
     c = 0;

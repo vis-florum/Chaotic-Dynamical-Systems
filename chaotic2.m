@@ -1,3 +1,5 @@
+% Playing with some visualisations of chaotic functions
+
 clear all
 clc
 
@@ -7,16 +9,14 @@ chaosfct = 'logistic';
 %chaosfct = @(x) x.^2 - 1;   % Can also define fct via function handle
 
 %% Parameters
-N = 40;     % Iterations
+N = 20;     % Iterations
 
-lambda = linspace(0,4,100);
+lambda = linspace(0,4,60);
 %lambda = linspace(-.5,.5,100);
-seed = linspace(0,1,10);
-%seed = 0.1;
-%lambda = 1
+seed = linspace(0,1,30);
 
 %% Populate the point array P
-P = zeros(length(seed),length(lambda),N+1); % Initialise array
+P = zeros(length(seed),  length(lambda),  N+1);  % Initialise array
 
 for l = 1:length(seed)
 
@@ -27,31 +27,47 @@ for l = 1:length(seed)
 
 end
 
-%%
-%Show all surface plots as a time series
+%% Surface plots as a time series for different seeds
 for l = 1:length(seed)
    
-    %show(:,:) = P(l,:,:);
+    % Squeeze out the singleton dimension (l) to visualise:
+    surf(squeeze(P(l,:,:)));
     
-    surf(show);
-    
-    pause(.5)
+    pause(.2)
 end
-%%
-% Condense all points and keep lambda to show a distribution of points:
+%% Surface plots as a time series for different function parameters
 for k = 1:length(lambda)
-        s(:) = P(:,k,:);
-        points(k,:) = s(:);
+   
+    % Squeeze out the singleton dimension to visualise:
+    surf(squeeze(P(:,k,:)));
+    
+    pause(.04)
 end
 
-%plot(lambda,points(:,5:end),'.')
-plot(lambda,points,'.')
+%% Surface plots as a time series for different iterations
+for k = 1:N
+   
+    % Squeeze out the singleton dimension to visualise:
+    surf(squeeze(P(:,:,k)));
+    
+    pause(.4)
+end
+
+%% Condense all points and keep lambda to show a distribution of points:
+for k = 1:length(lambda)
+    condLambda(k,:) = reshape(P(:,k,:),[],1);
+end
+
+%% Plot Point Distribution
+%plot(lambda,condLambda(:,5:end),'.')  % Show later points
+plot(lambda,condLambda,'.')            % Show all points
 xlabel('lambda')
 
-
-
-% plot(show,'.')
-% figure
-% plot(P');
-% figure
-% plot(P)
+%% Animate different point paths for different seeds and nr of iterations
+for i = 1:(N+1)*length(seed)
+    plot(lambda,condLambda(:,i),'.')
+    %hold on
+    pause(1/((N+1)*length(seed)))
+end
+hold off
+plot(lambda,condLambda,'.')            % Show all iterations

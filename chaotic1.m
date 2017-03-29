@@ -1,4 +1,5 @@
-% First file. Simple chaotic visualisation
+% First file
+% Simple chaotic visualisation
 
 clear
 clc
